@@ -32,7 +32,7 @@ function Post({post}: Props) {
             <img className='mx-auto mt-10' src={urlFor(post.mainImage).width(500).url()!} alt="" />
 
             <div className='m-10 font-medium text-xl text'>
-              {post.body.map(p => (
+              {post.body.map((p) => (
                 <p className='mb-10 indent-16'>{p.children[0].text}</p>
                 
               ))}
@@ -42,20 +42,22 @@ function Post({post}: Props) {
         </div>
 
 
-        <div className='hidden lg:inline-block w-1/4'>
+        <div className='hidden lg:inline-block sticky top-32 w-1/4 p-4 h-fit'>
           <div className='flex flex-col justify-start'>
             <img className='rounded-full w-32' src={urlFor(post.author.image).url()!} alt="" />
             <h1 className='text-2xl mt-2'>{post.author.name}</h1>
             <h2 className='mt-4 text-slate-500'>{post.author.bio[0].children[0].text}</h2>
-            <div className='mt-3 flex flex-col space-y-2'>
-              <button className='rounded-full bg-slate-500 px-3 py-1 w-fit'>Follow</button>
-              <button className='rounded-full bg-slate-500 px-3 py-1 w-fit'>Message</button>
+            <div className='mt-3 flex space-x-2'>
+              <button className='rounded-full bg-slate-500 px-3 py-1 w-fit hover:bg-slate-600 text-slate-50'>Follow</button>
+              <button className='rounded-full bg-slate-500 px-3 py-1 w-fit hover:bg-slate-600 text-slate-50'>Message</button>
+            </div>
+
+            <div className='mt-10'>
+              <h1 className='text-2xl'>More from {post.author.name}:</h1>
             </div>
           </div>
 
-          <div className='mt-10'>
-            <h1 className='text-2xl'>More from {post.author.name}:</h1>
-          </div>
+          
         </div>
       </section>
     </main>

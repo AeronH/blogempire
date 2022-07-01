@@ -5,7 +5,6 @@ import { sanityClient } from '../sanity';
 import { Post } from '../typings'
 import RecentPost from '../components/RecentPost'
 import PopularPost from '../components/PopularPost';
-import Link from 'next/link';
 import Footer from '../components/Footer'
 
 interface Props {

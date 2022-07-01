@@ -5,6 +5,11 @@ export interface Post {
   author: {
     name: string;
     image: string;
+    bio: [{
+      children: [{
+        text: string;
+      }]
+    }]
   };
   description: string;
   mainImage: {
@@ -15,6 +20,10 @@ export interface Post {
   slug: {
     current: string;
   };
-  body: [object];
+  body: [{
+    children: [{
+      text: string;
+    }]
+  }]
 };
 

@@ -10,7 +10,7 @@ interface Props {
 function RecentPost({post}: Props) {
   return (
       <Link key={post._id} href={`/post/${post.slug.current}`}>
-        <div className='flex flex-col w-64 mx-4 rounded-xl cursor-pointer group shadow-lg overflow-hidden'>
+        <div className='flex flex-col w-64 mx-4 rounded-lg cursor-pointer group shadow-lg overflow-hidden'>
           <div className='flex justify-center border border-gray-300 overflow-hidden'>
             <img className='h-40 w-full object-cover group-hover:scale-105 transition-transform duration-200 ease-in-out' src={urlFor(post.mainImage).url()!} alt="" />
           </div>
