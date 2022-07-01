@@ -6,6 +6,7 @@ import { Post } from '../typings'
 import RecentPost from '../components/RecentPost'
 import PopularPost from '../components/PopularPost';
 import Link from 'next/link';
+import Footer from '../components/Footer'
 
 interface Props {
   posts: [Post];
@@ -21,7 +22,7 @@ export default function Home({posts}: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
+      <Header/>
 
       <section className='bg-blue-200'>
         <div className=' flex flex-col max-w-7xl mx-auto md:flex-row '>
@@ -42,11 +43,8 @@ export default function Home({posts}: Props) {
         </div>
 
         <div className=' flex flex-wrap'>
-          {posts.map(post => (
-              <Link key={post._id} href={`/post/${post.slug.current}`}>
-                <RecentPost post={post}/>
-              </Link>
-              
+          {posts.map(post => (            
+                <RecentPost post={post}/>  
           ))}
         </div>
       </section>
@@ -57,13 +55,13 @@ export default function Home({posts}: Props) {
         </div>
 
         <div className='flex flex-col'>
-          {posts.map(post => (
-            <Link key={post._id} href={`/post/${post.slug.current}`}>
+          {posts.map(post => (           
               <PopularPost post={post}/>
-            </Link>
           ))}
         </div>
       </section>
+
+      <Footer />
     </div>
   )
 }
@@ -76,11 +74,13 @@ export const getServerSideProps = async () => {
     slug,
     author -> {
     name, 
-    image
+    image,
+    bio
   },
   description,
   mainImage, 
-  publishedAt
+  publishedAt,
+  body
   }`;
 
   const posts = await sanityClient.fetch(query);
