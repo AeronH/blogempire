@@ -5,6 +5,9 @@ export interface Post {
   author: {
     name: string;
     image: string;
+    slug: {
+      current: string;
+    };
     bio: [{
       children: [{
         text: string;
@@ -26,4 +29,19 @@ export interface Post {
     }]
   }]
 };
+
+export interface Author {
+  _id: string;
+  _createdAt: string;
+  name: string;
+  image: string;
+  bio: [{
+    children: [{
+      text: string;
+    }]
+  }]
+  slug:{
+    current: string;
+  };
+}
 

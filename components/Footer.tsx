@@ -2,7 +2,7 @@ import React from 'react'
 
 function Footer() {
   return (
-    <section className='bg-blue-900'>
+    <section className='bg-gradient-to-r from-blue-600 to-cyan-400'>
       <h1>Blog Empire</h1>
       <div>
         

@@ -1,4 +1,3 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
 import Header from '../components/Header'
 import { sanityClient } from '../sanity';
@@ -23,10 +22,10 @@ export default function Home({posts}: Props) {
 
       <Header/>
 
-      <section className='bg-blue-200'>
+      <section className='bg-gradient-to-r from-blue-600 to-cyan-400'>
         <div className=' flex flex-col max-w-7xl mx-auto md:flex-row '>
           <div className='flex-col justify-center h-96 w-full px-12 py-20 space-y-16 md:w-1/2 max-w-xl'>
-            <h1 className='font-bold text-6xl font-serif font'>Discover.</h1>
+            <h1 className='font-extrabold text-6xl'>Discover.</h1>
             <h2 className='text-2xl'><span className='underline font-semibold font-serif'>Blog Empire</span> is a place to explore and discover the hot topics of the world.</h2>
           </div>
 
@@ -36,27 +35,29 @@ export default function Home({posts}: Props) {
         </div>
       </section>
 
-      <section className='p-5 max-w-7xl mx-auto'>
-        <div>
-          <h2 className='font-semibold text-xl mb-4 font-serif'>Recent Posts:</h2>
+      <section className=''>
+        <div className='p-5 max-w-7xl mx-auto'>
+          <div>
+            <h2 className='font-extrabold text-3xl mb-4'>Recent Posts:</h2>
+          </div>
+
+          <div className=' flex flex-wrap'>
+            {posts.map(post => (            
+                  <RecentPost post={post}/>  
+            ))}
+          </div>
         </div>
 
-        <div className=' flex flex-wrap'>
-          {posts.map(post => (            
-                <RecentPost post={post}/>  
-          ))}
-        </div>
-      </section>
+        <div className='p-5 max-w-7xl mx-auto'>
+          <div>
+            <h2 className='font-extrabold text-3xl mb-4'>Top of all time:</h2>
+          </div>
 
-      <section className='p-5 max-w-7xl mx-auto'>
-        <div>
-          <h2 className='font-semibold text-xl mb-4 font-serif'>Top of all time:</h2>
-        </div>
-
-        <div className='flex flex-col'>
-          {posts.map(post => (           
-              <PopularPost post={post}/>
-          ))}
+          <div className='flex flex-col'>
+            {posts.map(post => (           
+                <PopularPost post={post}/>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -74,7 +75,8 @@ export const getServerSideProps = async () => {
     author -> {
     name, 
     image,
-    bio
+    bio,
+    slug
   },
   description,
   mainImage, 
