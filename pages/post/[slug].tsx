@@ -4,6 +4,9 @@ import { GetStaticProps } from 'next'
 import { Post } from "../../typings"
 import Link from 'next/link'
 import Image from 'next/image'
+import Head from 'next/head'
+import Comments from '../../components/Comments'
+import { Avatar } from '@chakra-ui/react'
 
 interface Props {
   post: Post;
@@ -14,17 +17,18 @@ function Post({post}: Props) {
 
   return (
     <main className='bg-slate-50'>
+      <Head>
+        <title>{post.title}</title>
+      </Head>
       <Header/>
       <section className='max-w-7xl mx-auto p-10 flex'>
         <div className='w-full lg:w-3/4'>
         <Link href={`/author/${post.author.slug.current}`}>
           <div className='flex items-center space-x-4 mb-10 cursor-pointer'>
-            <Image
-              className='rounded-full'
-              src={urlFor(post.author.image).width(500).url()!}
-              height={64}
-              width={64}
-            />
+            <Avatar 
+              src={urlFor(post.author.image).width(500).url()}
+              size='lg'
+              name={post.author.name}/>
             <div className=''>
               <h2>{post.author.name}</h2>
               <h2 className='text-slate-500'>{new Date(post._createdAt).toLocaleString()}</h2>
@@ -56,6 +60,7 @@ function Post({post}: Props) {
             </div>
             
           </div>
+          <Comments />
         </div>
 
 

@@ -5,6 +5,8 @@ import { Post } from '../typings'
 import RecentPost from '../components/RecentPost'
 import PopularPost from '../components/PopularPost';
 import Footer from '../components/Footer'
+import Image from 'next/image'
+import Logo from '../public/95ffeb53ee4b454ab99a87bf789ff5fc.png'
 
 interface Props {
   posts: [Post];
@@ -22,7 +24,7 @@ export default function Home({posts}: Props) {
 
       <Header/>
 
-      <section className='bg-gradient-to-r from-blue-600 to-cyan-400'>
+      <section className='bg-gradient-to-r from-blue-800 to-cyan-400'>
         <div className=' flex flex-col max-w-7xl mx-auto md:flex-row '>
           <div className='flex-col justify-center h-96 w-full px-12 py-20 space-y-16 md:w-1/2 max-w-xl'>
             <h1 className='font-extrabold text-6xl'>Discover.</h1>
@@ -30,7 +32,10 @@ export default function Home({posts}: Props) {
           </div>
 
           <div className='hidden md:flex justify-center items-center w-1/2'>
-            Logo
+            <Image 
+              src={Logo}
+              height={200}
+              width={200}/>
           </div>
         </div>
       </section>

@@ -3,6 +3,7 @@ import { urlFor } from '../sanity'
 import { Post } from '../typings'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Avatar } from '@chakra-ui/react'
 
 interface Props {
   post: Post;
@@ -26,13 +27,13 @@ function RecentPost({post}: Props) {
             </div>
 
             <Link href={`/author/${post.author.slug.current}`}>
-              <div className='flex items-center space-x-2'>
+              <div className='flex items-center space-x-1'>
                 <h2 className='text-gray-400 mr-2'>By: {post.author.name}</h2>
-                <Image
-                  className='rounded-full object-cover'
-                  src={urlFor(post.author.image).width(100).url()!}
-                  height={36}
-                  width={36}/>
+                <Avatar 
+                src={urlFor(post.author.image).width(100).url()}
+                size='sm'
+                name={post.author.name}
+              />
               </div>
             </Link>
           </div>

@@ -1,28 +1,48 @@
 import Link from "next/link"
+import Image from 'next/image'
+import { useSession, signIn } from 'next-auth/react'
+import { Avatar, Button } from "@chakra-ui/react";
+import Dropdown from "./Dropdown";
 
 function Header() {
+  const {data: session} = useSession();
+
   return (
-    <nav className='sticky top-0 w-full bg-slate-50 shadow-lg overflow-hidden z-50'>
+    <nav className='sticky top-0 w-full bg-slate-50 shadow-lg z-50'>
       <div className='max-w-7xl mx-auto p-4 flex justify-between items-center'>
         <div className='flex space-x-5'>
           <Link href='/'>
             <img className ='w-44 object-contain cursor-pointer' src='https://links.papareact.com/yvf' />
           </Link>
           <div className='hidden md:inline-flex items-center space-x-4'>
-            <h3 className='cursor-pointer'>About</h3>
-            <h3 className='cursor-pointer'>Contact</h3>
-            <h3 className='text-white bg-blue-400 px-4 py-1 rounded-full cursor-pointer hover:bg-blue-600 active:text-gray-100'>Browse</h3>
+            <Button variant='link' colorScheme='blue'>About</Button>
+            <Button variant='link' colorScheme='blue'>Contact</Button>
+            <Link href='/browse'>
+              <Button 
+                className='text-blue-600' 
+                variant='outline' 
+                colorScheme='blue'
+              >Browse</Button>
+            </Link>
           </div>
         </div>
 
-        {/* <div className="hidden md:w-1/5 md:inline-flex lg:inline-flex lg:w-1/3">
-          <input className='border rounded-full px-5 py-1 w-full' type="text" placeholder='search'/>
-        </div> */}
+        {session ? 
 
-        <div className='flex items-center space-x-4 text-blue-400 '>
-          <h3 className='cursor-pointer hover:text-blue-600'>Sign In</h3>
-          <h3 className='border px-4 py-1 rounded-full border-blue-400 cursor-pointer hover:border-blue-600 hover:text-blue-600 active:bg-gray-100'>Get Started</h3>
-        </div>
+          <div className='flex items-center space-x-4'>
+            <Avatar src={session.user?.image || ''}/>
+            <Dropdown />
+          </div>
+          
+          :
+
+            <Button 
+              onClick={() => signIn()} 
+              className='mr-8' 
+              colorScheme='blue'
+            >Sign In</Button>
+
+        }        
       </div>
     </nav>
   )
