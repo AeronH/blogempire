@@ -23,10 +23,6 @@ function Author({author, posts}: Props) {
           <img className='rounded-full h-64 w-64 object-cover' src={urlFor(author.image).width(400).url()!} alt="" />
           <h1 className='text-3xl'>- {author.name} -</h1>
           <h2 className='text-gray-600 text-lg'>{author.bio[0].children[0].text}</h2>
-          <div className='flex space-x-4 text-blue-400'>
-            <h3 className=''>- Followers: 12734</h3>
-            <h3 className=''>Following: 13 -</h3>
-          </div> 
         </div>
 
         <div className='w-full flex mt-12 p-6'>

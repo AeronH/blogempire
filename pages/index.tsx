@@ -7,14 +7,18 @@ import PopularPost from '../components/PopularPost';
 import Footer from '../components/Footer'
 import Image from 'next/image'
 import Logo from '../public/95ffeb53ee4b454ab99a87bf789ff5fc.png'
+import { useState } from 'React'
+import { collection, getDocs} from 'firebase/firestore'
+import { db } from '../firebase'
 
 interface Props {
   posts: [Post];
 }
 
 export default function Home({posts}: Props) {
-
+  
   console.log(posts);
+  
   return (
     <div className="bg-slate-50">
       <Head>
@@ -23,7 +27,7 @@ export default function Home({posts}: Props) {
       </Head>
 
       <Header/>
-
+      
       <section className='bg-gradient-to-r from-blue-800 to-cyan-400'>
         <div className=' flex flex-col max-w-7xl mx-auto md:flex-row '>
           <div className='flex-col justify-center h-96 w-full px-12 py-20 space-y-16 md:w-1/2 max-w-xl'>
@@ -58,11 +62,11 @@ export default function Home({posts}: Props) {
             <h2 className='font-extrabold text-3xl mb-4'>Top of all time:</h2>
           </div>
 
-          <div className='flex flex-col'>
+          {/* <div className='flex flex-col'>
             {posts.map(post => (           
                 <PopularPost post={post}/>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -72,28 +76,40 @@ export default function Home({posts}: Props) {
 }
 
 
+const postsRef = collection(db, 'posts');
+
 export const getServerSideProps = async () => {
-  const query = `*[_type == 'post']{
-    _id,
-    title,
-    slug,
-    author -> {
-    name, 
-    image,
-    bio,
-    slug
-  },
-  description,
-  mainImage, 
-  publishedAt,
-  body
-  }`;
+  const postsSnap = await getDocs(postsRef);
 
-  const posts = await sanityClient.fetch(query);
-
+  const posts = postsSnap.docs.map((doc) =>  {
+    return {...doc.data(), id: doc.id};
+  })
   return {
     props: {
-      posts,
-    },
-  };
+      posts: JSON.parse(JSON.stringify(posts))
+    }
+  }
+  // const query = `*[_type == 'post']{
+  //   _id,
+  //   title,
+  //   slug,
+  //   author -> {
+  //   name, 
+  //   image,
+  //   bio,
+  //   slug
+  // },
+  // description,
+  // mainImage, 
+  // publishedAt,
+  // body
+  // }`;
+
+  // const posts = await sanityClient.fetch(query);
+
+  // return {
+  //   props: {
+  //     posts,
+  //   },
+  // };
 }

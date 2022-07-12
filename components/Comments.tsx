@@ -18,7 +18,7 @@ function Comments() {
         <Button 
           className='mt-4' 
           size='lg' 
-          colorScheme='blue'>Submit</Button>
+          colorScheme='facebook'>Submit</Button>
       </form>
     </div>
   )

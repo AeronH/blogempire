@@ -1,33 +1,16 @@
 export interface Post {
-  _id: string;
-  _createdAt: string;
-  title: string;
-  author: {
-    name: string;
-    image: string;
-    slug: {
-      current: string;
-    };
-    bio: [{
-      children: [{
-        text: string;
-      }]
-    }]
-  };
+  author: string;
+  body: string;
+  categories: string[];
   description: string;
-  mainImage: {
-    asset: {
-      url: string;
-    };
+  id: string;
+  mainImage: string;
+  publishedDate: {
+    nanoseconds: number;
+    seconds: number;
   };
-  slug: {
-    current: string;
-  };
-  body: [{
-    children: [{
-      text: string;
-    }]
-  }]
+  slug: string;
+  title: string
 };
 
 export interface Author {
