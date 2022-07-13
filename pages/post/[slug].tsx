@@ -30,11 +30,11 @@ function Post({post}: Props) {
         <Link href={`/author/${post.id}`}>
           <div className='flex items-center space-x-4 mb-10 cursor-pointer'>
             <Avatar 
-              src={post.author[2]}
+              src={post.author.image}
               size='lg'
-              name={post.author[0]}/>
+              name={post.author.name}/>
             <div className=''>
-              <h2>{post.author[0]}}</h2>
+              <h2>{post.author.name}</h2>
               <h2 className='text-slate-500'>{date}</h2>
             </div>
           </div>
@@ -46,13 +46,11 @@ function Post({post}: Props) {
               <h1 className='text-xl'>{post.description}</h1>
             </div>
 
-            <img className='mx-auto mt-10' src={urlFor(post.mainImage).width(500).url()!} alt="" />
+            <img className='mx-auto mt-10' src={post.mainImage} alt="" />
             <div className='w-full h-80 relative mx-auto mt-10 px-10'>
-              <Image
+              <img
                 className='object-center object-contain'
-                src={urlFor(post.mainImage).url()!}
-                layout='fill'
-                priority
+                src={post.mainImage}
               />
             </div>
 
@@ -67,19 +65,19 @@ function Post({post}: Props) {
 
         <div className='hidden lg:inline-block sticky top-32 w-1/4 p-4 h-fit'>
           <div className='flex flex-col justify-start'>
-            <img className='h-48 w-48 rounded-full object-cover' src={urlFor(post.author.image).width(400).url()!} alt="" />
-            <h1 className='text-2xl mt-2'>{post.author[0]}</h1>
+            <img className='h-48 w-48 rounded-full object-cover' src={post.author.image} alt="" />
+            <h1 className='text-2xl mt-2'>{post.author.name}</h1>
             <h2 className='mt-4 text-slate-500'>{post.author.bio[0].children[0].text}</h2>
             <div className='mt-3 flex flex-wrap'>
               <button className='rounded-full bg-slate-500 px-3 py-1 w-fit h-fit mr-2 hover:bg-slate-600 text-slate-50'>Follow</button>
               <button className='rounded-full bg-slate-500 px-3 py-1 w-fit h-fit hover:bg-slate-600 text-slate-50'>Message</button>
-              <Link href={`/author/${post.author.slug.current}`}>
+              <Link href={`/author/${post.author.slug}`}>
                 <button className='rounded-full bg-slate-500 px-3 py-1 w-fit h-fit mt-2 hover:bg-slate-600 text-slate-50'>View Profile</button>
               </Link>
             </div>
 
             <div className='mt-10'>
-              <h1 className='text-2xl'>More from {post.author[0]}:</h1>
+              <h1 className='text-2xl'>More from {post.author.name}:</h1>
             </div>
           </div>
 
@@ -103,7 +101,7 @@ export const getStaticPaths = async () => {
       slug: doc.data().slug
     }
   }));
-
+  
   return {
     paths,
     fallback: 'blocking'
@@ -111,16 +109,15 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
-  
+  // const { params }: any = paths;
   const q = query(postsRef, where('slug', '==', params?.slug));
-  console.log(q);
   
-
   const postSnap = await getDocs(q);
 
-  const post = postSnap.docs.map((doc) =>  {
+  let post = postSnap.docs.map((doc) =>  {
     return {...doc.data(), id: doc.id};
   })
+  
 
 
   // const query = `*[_type == 'post' && slug.current == $slug][0]{
@@ -151,7 +148,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
   return {
     props: {
-      post: JSON.parse(JSON.stringify(post))
+      post: JSON.parse(JSON.stringify(post[0]))
     }
   }
 }

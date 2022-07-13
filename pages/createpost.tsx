@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react'
 import Header from '../components/Header';
 import { Input, Textarea, Button, Checkbox, CheckboxGroup, Stack, FormLabel, FormControl, FormErrorMessage } from '@chakra-ui/react'
 import { db } from '../firebase'
-import { addDoc, collection, doc } from 'firebase/firestore'
+import { addDoc, collection } from 'firebase/firestore'
 
 function createpost() {
 
@@ -144,6 +144,7 @@ function createpost() {
                   <Checkbox onChange={handleChecked} value='travel'>Travel</Checkbox>
                   <Checkbox onChange={handleChecked} value='fashion'>Fashion</Checkbox>
                   <Checkbox onChange={handleChecked} value='fitness'>Fitness</Checkbox>
+                  <Checkbox onChange={handleChecked} value='music'>Music</Checkbox>
                 </Stack>
               </CheckboxGroup>
             </div>
