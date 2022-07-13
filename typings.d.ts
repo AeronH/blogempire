@@ -1,5 +1,11 @@
+import { StringLike } from "@firebase/util";
+
 export interface Post {
-  author: string;
+  author: {
+    name: string;
+    slug: string,
+    image: string;
+  }
   body: string;
   categories: string[];
   description: string;
@@ -26,5 +32,13 @@ export interface Author {
   slug:{
     current: string;
   };
+}
+
+export interface Provider {
+  callbackUrl: String;
+  id: string;
+  name: string;
+  signinUrl: string;
+  type: string;
 }
 

@@ -100,7 +100,7 @@ export const getStaticPaths = async () => {
 
   const paths = postsSnap.docs.map((doc) =>  ({
     params: {
-      id: doc.id
+      slug: doc.data().slug
     }
   }));
 
@@ -112,7 +112,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   
-  const q = query(postsRef, where('id', '==', params?.id));
+  const q = query(postsRef, where('slug', '==', params?.slug));
   console.log(q);
   
 
@@ -151,7 +151,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
   return {
     props: {
-      post: JSON.parse(JSON.stringify(post[0]))
+      post: JSON.parse(JSON.stringify(post))
     }
   }
 }
