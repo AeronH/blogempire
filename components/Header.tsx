@@ -1,5 +1,4 @@
 import Link from "next/link"
-import Image from 'next/image'
 import { Avatar, Button } from "@chakra-ui/react";
 import Dropdown from "./Dropdown";
 import { useSession, signIn } from 'next-auth/react'
@@ -22,15 +21,15 @@ function Header({inCreatePostPage}: Props) {
             <img className ='w-44 object-contain cursor-pointer' src='https://links.papareact.com/yvf' />
           </Link>
 
-          <div className='hidden md:inline-flex items-center space-x-4'>
-            <Button variant='link' colorScheme='gray'>About</Button>
-            <Button variant='link' colorScheme='gray'>Contact</Button>
+          <div className='space-x-5 flex'>
+            <div className='space-x-5 hidden md:flex items-center'>
+              <Button variant='link' colorScheme='black'>About</Button>
+              <Button variant='link' colorScheme='black'>Contact</Button>
 
-            <Link href='/browse'>
-              <button  
-                className='font-semibold px-3 py-2 rounded-full bg-blue-400 hover:bg-blue-600 active:bg-blue-700'
-              >Browse</button>
-            </Link>
+              <Link href='/browse'>
+                <Button variant='link' colorScheme='black'>Browse</Button>
+              </Link>
+            </div>
 
             {(session && !inCreatePostPage) &&
             <Link href='/createpost'>

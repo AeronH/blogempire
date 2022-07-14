@@ -1,8 +1,6 @@
 import React from 'react'
-import { urlFor } from '../sanity'
 import { Post } from '../typings'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Avatar } from '@chakra-ui/react'
 
 interface Props {

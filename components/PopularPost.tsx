@@ -1,8 +1,6 @@
 import React from 'react'
-import { urlFor } from '../sanity'
 import { Post } from '../typings'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Avatar } from '@chakra-ui/react'
 
 interface Props {
@@ -11,30 +9,21 @@ interface Props {
 
 function PopularPost({post}: Props) {
 
-  const authorSlugSplit = post.author.name.split(' ');
+  const backgroundStyles = {
+    backgroundImage: `linear-gradient(to bottom, rgba(0, 0 ,0, 0.0), black), url(${post.mainImage})`,
+  }
+
   return (
-    <Link key={post._id} href={`/post/${post.slug.current}`}>
-      <div className='flex justify-between w-full p-5 border-b-2 cursor-pointer group'>
-        <div className='flex flex-col justify-center'>
-          <h2 className='font-extrabold text-2xl mb-3'>{post.title}</h2>
-          <h2 className='text-xl text-slate-600 mb-3'>{post.description}</h2>
-
-          <Link href={`/author/${post.author.slug.current}`}>
-            <div className='flex items-center space-x-1'>
-              <h2 className='text-lg text-slate-400 mr-2'>By: {post.author.name}</h2>
-              <Avatar 
-                src={urlFor(post.author.image).width(100).url()}
-                size='sm'
-                name={post.author.name}
-              />
-              
-            </div>
-          </Link>
+    <Link key={post.id} href={`/post/${post.slug}`}>
+      <div className='flex flex-col justify-end overflow-hidden relative h-72 group'>
+        <div className='absolute top-0 right-0 z-0 flex flex-col justify-end w-full h-full p-5 cursor-pointer group bg-no-repeat bg-cover bg-center transition group-hover:scale-105 duration-300' style={backgroundStyles}>
         </div>
-
-        <div className='flex justify-center rounded-lg overflow-hidden'>
-          <img className='h-50 w-full object-cover group-hover:scale-105 transition-transform duration-200 ease-in-out' src={urlFor(post.mainImage).height(200).width(300).url()!} alt="" />
+        <div className='z-50 p-4 cursor-pointer'>
+          <h2 className='text-slate-300 text-sm italic'>{post.categories[0]}</h2>
+          <h1 className='text-white text-lg overflow-ellipsis font-serif'>{post.title}</h1>
+          <p className='text-slate-300 font-serif'>{post.description}</p>
         </div>
+        
       </div>
     </Link>
   )

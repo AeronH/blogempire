@@ -9,21 +9,20 @@ function createpost() {
 
   const {data: session} = useSession();
 
-  const [title, setTitle] = useState<string>();
-  const [body, setBody] = useState<string>();
+  const [title, setTitle] = useState<string>('');
+  const [body, setBody] = useState<string>('');
   const [categories, setCategories] = useState<string[]>([]);
-  const [description, setDescription] = useState<string>();
-  const [mainImage, setMainImage] = useState<string>();
+  const [description, setDescription] = useState<string>('');
+  const [mainImage, setMainImage] = useState<string>('');
 
   const [titleError, setTitleError] = useState<boolean>(false);
   const [bodyError, setBodyError] = useState<boolean>(false);
   const [descriptionError, setDescriptionError] = useState<boolean>(false);
-  const [mainImageError, setMainImageError] = useState<boolean>(false);
 
   const handleSubmit = (e: any): void => {
     e.preventDefault();
     checkErrors();
-    if(title && body && description && mainImage){
+    if(title && body && description){
       addPostToDatabase();
       resetFields();
     }
@@ -33,7 +32,6 @@ function createpost() {
     title ? setTitleError(false) : setTitleError(true);
     body ? setBodyError(false) : setBodyError(true);
     description ? setDescriptionError(false) : setDescriptionError(true);
-    mainImage ? setMainImageError(false) : setMainImageError(true);
   }
 
   const resetFields = () => {
@@ -44,7 +42,6 @@ function createpost() {
     setMainImage('');
     setTitleError(false);
     setBodyError(false);
-    setMainImageError(false);
     setDescriptionError(false);
   }
 
@@ -72,7 +69,7 @@ function createpost() {
         image: session?.user?.image
       },
       body,
-      categories: categories,
+      categories,
       description,
       mainImage,
       publishedDate: new Date().toUTCString().slice(5, 16),
@@ -112,14 +109,11 @@ function createpost() {
             </div>
 
             <div className='space-y-2'>
-            <FormControl isRequired isInvalid={mainImageError}>
               <FormLabel htmlFor="title-input">Image: </FormLabel>
               <Input 
                 onChange={(e) => setMainImage(e.target.value)}
                 value={mainImage}
                 placeholder='Enter the image URL'></Input>
-              <FormErrorMessage>An image is required</FormErrorMessage>
-            </FormControl>
             </div>
 
             <div className='space-y-2'>

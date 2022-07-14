@@ -1,8 +1,10 @@
 import { urlFor, sanityClient } from "../../sanity"
 import Header from "../../components/Header"
 import { GetStaticProps } from 'next'
-import { Author, Post } from '../../typings'
+import { Post } from '../../typings'
 import Head from 'next/head'
+import { db } from '../../firebase'
+import { collection, getDocs } from 'firebase/firestore'
 
 interface Props {
   author: Author;
@@ -43,6 +45,8 @@ function Author({author, posts}: Props) {
 }
 
 export default Author
+
+const postsRef = collection(db, 'posts');
 
 
 export const getStaticPaths = async () => {

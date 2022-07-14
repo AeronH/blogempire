@@ -11,28 +11,10 @@ export interface Post {
   description: string;
   id: string;
   mainImage: string;
-  publishedDate: {
-    nanoseconds: number;
-    seconds: number;
-  };
+  publishedDate: string;
   slug: string;
-  title: string
+  title: string;
 };
-
-export interface Author {
-  _id: string;
-  _createdAt: string;
-  name: string;
-  image: string;
-  bio: [{
-    children: [{
-      text: string;
-    }]
-  }]
-  slug:{
-    current: string;
-  };
-}
 
 export interface Provider {
   callbackUrl: String;
