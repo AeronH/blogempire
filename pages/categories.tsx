@@ -4,6 +4,8 @@ import Footer from '../components/Footer';
 import Link from 'next/link';
 
 function categories() {
+  
+  const toCapitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 
   const categories = ['tech', 'travel', 'music', 'food', 'lifestyle', 'gaming', 'fitness', 'fashion'];
   const categoryImages: any = {
@@ -26,10 +28,10 @@ function categories() {
         {categories.map(category => (
           <Link href={`/categories/${category}`}>
             <div className='flex justify-center items-center relative h-72 overflow-hidden group cursor-pointer'>
-              <div style={{backgroundImage: `url(${categoryImages[category]})`}} className='absolute top-0 right-0 z-0 h-full w-full bg-no-repeat bg-cover bg-center transition group-hover:scale-105 duration-300'>
+              <div style={{backgroundImage: `url(${categoryImages[category]})`}} className='absolute top-0 right-0 z-0 h-full w-full bg-no-repeat bg-cover bg-center transition group-hover:scale-105 duration-200'>
               </div>
               <div className='z-50'>
-                <h1 className='text-4xl text-white'>{category}</h1>
+                <h1 className='text-4xl text-white'>{toCapitalize(category)}</h1>
               </div>
             </div>
           </Link>
