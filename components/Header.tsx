@@ -26,8 +26,8 @@ function Header({inCreatePostPage}: Props) {
               <Button variant='link' colorScheme='black'>About</Button>
               <Button variant='link' colorScheme='black'>Contact</Button>
 
-              <Link href='/browse'>
-                <Button variant='link' colorScheme='black'>Browse</Button>
+              <Link href='/categories'>
+                <Button variant='link' colorScheme='black'>Categories</Button>
               </Link>
             </div>
 

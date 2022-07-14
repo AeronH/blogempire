@@ -131,7 +131,7 @@ function createpost() {
               <FormLabel htmlFor="category-checkbox">Category: </FormLabel>
               <CheckboxGroup colorScheme='blue'>
                 <Stack spacing={[1, 5]} direction={['column', 'row']}>
-                  <Checkbox onChange={handleChecked} value='programming'>Programming</Checkbox>
+                  <Checkbox onChange={handleChecked} value='tech'>Tech</Checkbox>
                   <Checkbox onChange={handleChecked} value='gaming'>Gaming</Checkbox>
                   <Checkbox onChange={handleChecked} value='lifestyle'>Lifestyle</Checkbox>
                   <Checkbox onChange={handleChecked} value='food'>Food</Checkbox>
