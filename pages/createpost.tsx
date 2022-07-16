@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { Input, Textarea, Button, Checkbox, CheckboxGroup, Stack, FormLabel, FormControl, FormErrorMessage } from '@chakra-ui/react'
 import { db } from '../firebase'
 import { addDoc, collection } from 'firebase/firestore'
@@ -83,13 +84,14 @@ function createpost() {
   return (
     <div>
       <Header inCreatePostPage={true}/>
-      <section className='max-w-7xl mx-auto p-10'>
+      <section className='max-w-7xl mx-auto py-[80px] sm:p-[80px] bg-[url(https://images.pexels.com/photos/2775196/pexels-photo-2775196.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] bg-no-repeat bg-cover bg-center'>
         
-          <form action="post" className='space-y-5'>
+          <form action="post" className='space-y-5 bg-white p-10 border-4 border-black'>
             <div className='space-y-2'>
               <FormControl isRequired isInvalid={titleError}>
                 <FormLabel htmlFor="title-input">Title: </FormLabel>
                 <Input 
+                  variant='flushed'
                   onChange={(e) => setTitle(e.target.value)}
                   value={title}
                   placeholder='Enter the title'></Input>
@@ -100,7 +102,8 @@ function createpost() {
             <div className='space-y-2'>
               <FormControl isRequired isInvalid={descriptionError}>
                 <FormLabel htmlFor="title-input">Description: </FormLabel>
-                <Input 
+                <Input
+                  variant='flushed'
                   onChange={(e) => setDescription(e.target.value)}
                   value={description}
                   placeholder='Enter the description'></Input>
@@ -111,6 +114,7 @@ function createpost() {
             <div className='space-y-2'>
               <FormLabel htmlFor="title-input">Image: </FormLabel>
               <Input 
+                variant='flushed'
                 onChange={(e) => setMainImage(e.target.value)}
                 value={mainImage}
                 placeholder='Enter the image URL'></Input>
@@ -120,6 +124,7 @@ function createpost() {
               <FormControl isRequired isInvalid={bodyError}>
                 <FormLabel htmlFor="title-input">Body: </FormLabel>
                 <Textarea 
+                  variant='flushed'
                   onChange={(e) => setBody(e.target.value)}
                   value={body}
                   placeholder='Enter the body'></Textarea>
@@ -130,7 +135,7 @@ function createpost() {
             <div className='space-y-2'>
               <FormLabel htmlFor="category-checkbox">Category: </FormLabel>
               <CheckboxGroup colorScheme='blue'>
-                <Stack spacing={[1, 5]} direction={['column', 'row']}>
+                <Stack spacing={[1, 5]} direction={['column', 'row']} className='flex flex-wrap'>
                   <Checkbox onChange={handleChecked} value='tech'>Tech</Checkbox>
                   <Checkbox onChange={handleChecked} value='gaming'>Gaming</Checkbox>
                   <Checkbox onChange={handleChecked} value='lifestyle'>Lifestyle</Checkbox>
@@ -148,6 +153,7 @@ function createpost() {
           </form>
         
       </section>
+      <Footer />
     </div>
   )
 }

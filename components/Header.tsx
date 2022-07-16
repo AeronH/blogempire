@@ -23,9 +23,14 @@ function Header({inCreatePostPage}: Props) {
 
           <div className='space-x-5 flex'>
             <div className='space-x-5 hidden md:flex items-center'>
-              <Button variant='link' colorScheme='black'>About</Button>
-              <Button variant='link' colorScheme='black'>Contact</Button>
+              <Link href='/aboutus'>
+                <Button variant='link' colorScheme='black'>About</Button>
+              </Link>
 
+              <Link href='/contact'>
+                <Button variant='link' colorScheme='black'>Contact</Button>
+              </Link>
+              
               <Link href='/categories'>
                 <Button variant='link' colorScheme='black'>Categories</Button>
               </Link>

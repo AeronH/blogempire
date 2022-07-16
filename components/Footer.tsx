@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 function Footer() {
   return (
@@ -15,10 +16,19 @@ function Footer() {
             <h2 className='text-xl font-semibold mb-4'>Menu</h2>
             <ul className='space-y-4'>
               <li>
-                <p className='hover:underline cursor-pointer'>Home</p>
+                <Link href='/'>
+                  <p className='hover:underline cursor-pointer'>Home</p>
+                </Link>
               </li>
               <li>
-                <p className='hover:underline cursor-pointer'>About Us</p>
+                <Link href='/aboutus'>
+                  <p className='hover:underline cursor-pointer'>About Us</p>
+                </Link>
+              </li>
+              <li>
+                <Link href='/contact'>
+                  <p className='hover:underline cursor-pointer'>Contact</p>
+                </Link>
               </li>
             </ul>
           </div>
@@ -27,16 +37,24 @@ function Footer() {
             <h2 className='text-xl font-semibold mb-4'>Categories</h2>
             <ul className='space-y-4'>
               <li>
-                <p className='hover:underline cursor-pointer'>Programming</p>
+                <Link href='/categories/tech'>
+                  <p className='hover:underline cursor-pointer'>Tech</p>
+                </Link>
               </li>
               <li>
-                <p className='hover:underline cursor-pointer'>Gaming</p>
+                <Link href='/categories/gaming'>
+                  <p className='hover:underline cursor-pointer'>Gaming</p>
+                </Link>
               </li>
               <li>
-                <p className='hover:underline cursor-pointer'>Fitness</p>
+                <Link href='/categories/fitness'>
+                  <p className='hover:underline cursor-pointer'>Fitness</p>
+                </Link>
               </li>
               <li>
-                <p className='hover:underline cursor-pointer'>View All</p>
+                <Link href='/categories'>
+                  <p className='hover:underline cursor-pointer'>View All</p>
+                </Link>
               </li>
             </ul>
           </div>

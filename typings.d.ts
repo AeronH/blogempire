@@ -24,4 +24,8 @@ export interface Provider {
   type: string;
 }
 
+export interface Posts { 
+
+}
+
 
