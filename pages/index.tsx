@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import { Post } from '../typings'
 import RecentPost from '../components/RecentPost'
-import PopularPost from '../components/PopularPost';
+import PostCard from '../components/PostCard';
 import Footer from '../components/Footer'
 import { collection, getDocs} from 'firebase/firestore'
 import { db } from '../firebase'
@@ -55,7 +55,7 @@ export default function Home({posts}: Props) {
 
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
             {posts.map(post => (           
-                <PopularPost post={post}/>
+                <PostCard post={post}/>
             ))}
           </div>
         </div>
