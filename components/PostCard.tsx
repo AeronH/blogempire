@@ -14,7 +14,7 @@ function PostCard({post}: Props) {
   }
 
   return (
-    <Link key={post.id} href={`/post/${post.slug}`}>
+    <Link key={post.slug} href={`/post/${post.slug}`}>
       <div className='flex flex-col justify-end overflow-hidden relative h-72 group cursor-pointer'>
         <div className='absolute top-0 right-0 z-0 w-full h-full p-5 group bg-no-repeat bg-cover bg-center transition group-hover:scale-105 duration-300' style={backgroundStyles}>
         </div>

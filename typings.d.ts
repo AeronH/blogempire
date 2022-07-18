@@ -5,15 +5,16 @@ export interface Post {
     name: string;
     slug: string,
     image: string;
+    uid: number;
   }
   body: string;
   categories: string[];
   description: string;
-  id: string;
   mainImage: string;
   publishedDate: string;
   slug: string;
   title: string;
+  comments: string[];
 };
 
 export interface Provider {
@@ -24,8 +25,5 @@ export interface Provider {
   type: string;
 }
 
-export interface Posts { 
-
-}
 
 
