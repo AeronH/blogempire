@@ -4,25 +4,25 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Input, Textarea, Button, Checkbox, CheckboxGroup, Stack, FormLabel, FormControl, FormErrorMessage } from '@chakra-ui/react'
 import { db } from '../firebase'
-import { addDoc, collection } from 'firebase/firestore'
+import { collection, doc, setDoc } from 'firebase/firestore'
 import { Post } from '../typings';
 
-interface Session {
-  session: {
-    expires: string;
-    uid: string;
-    user: {
-      email: string;
-      image: string;
-      name: string;
-      username: string;
-    }
-  }
-}
+// interface Session {
+//   session: {
+//     expires: string;
+//     uid: string;
+//     user: {
+//       email: string;
+//       image: string;
+//       name: string;
+//       username: string;
+//     }
+//   }
+// }
 
 function createpost() {
 
-  const {data: session}: Session = useSession();
+  const {data: session}: any = useSession();
 
   const [title, setTitle] = useState<string>('');
   const [body, setBody] = useState<string>('');
@@ -70,13 +70,12 @@ function createpost() {
       let newCategories = categories.filter(item => {
         return item !== e.target.value;
       });
-      setCategories(newCategories); 
+      setCategories(newCategories);
     }
   }
 
-  const dbRef: any = collection(db, 'posts');
-
   const addPostToDatabase = async () => {
+    const docRef: any = doc(collection(db, 'posts'));
     const newData: Post = {
       author: {
         name: session?.user?.name!, 
@@ -90,11 +89,12 @@ function createpost() {
       mainImage,
       publishedDate: new Date().toUTCString().slice(5, 16),
       slug: title?.split(' ').join('-').toLocaleLowerCase(),
+      id: docRef.id,
       title,
       comments: [],
     };
 
-    await addDoc(dbRef, newData); 
+    await setDoc(docRef, newData); 
   }
 
   return (

@@ -1,46 +1,73 @@
-import { urlFor, sanityClient } from "../../sanity"
 import Header from "../../components/Header"
 import { GetStaticProps } from 'next'
 import { Post } from '../../typings'
 import Head from 'next/head'
 import { db } from '../../firebase'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, query, where, deleteDoc, doc } from 'firebase/firestore'
+import Footer from '../../components/Footer'
+import PostCard from '../../components/PostCard'
+import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 
 interface Props {
-  author: Author;
-  posts: Post;
+  posts: [Post];
 }
 
-function Author({author, posts}: Props) {
-  console.log(posts);
+function Author({posts}: Props) {
+
+  const {data: session} = useSession();
+  const [authorsPosts, setAuthorsPosts] = useState<Post[]>(posts);
+
+  const deletePost = async (e: any, post: Post) => {
+    e.preventDefault();
+    await deleteDoc(doc(db, 'posts', post.id));
+
+    setAuthorsPosts(current => 
+      current.filter(authorsPost => {
+        return authorsPost !== post;
+      }));
+  }
+
   return (
-    <main>
+    <div className="bg-slate-100">
       <Head>
-        <title>{author.name}</title>
+        <title>{posts[0].author.name}</title>
       </Head>
       <Header />
-      <section className='max-w-7xl mx-auto'>
+      <section className='min-h-screen'>
 
-        <div className='p-6 mt-8 space-y-4'>
-          <img className='rounded-full h-64 w-64 object-cover' src={urlFor(author.image).width(400).url()!} alt="" />
-          <h1 className='text-3xl'>- {author.name} -</h1>
-          <h2 className='text-gray-600 text-lg'>{author.bio[0].children[0].text}</h2>
+        <div className='p-6 space-y-4 flex items-center justify-center h-72 bg-[url(https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)] bg-no-repeat bg-cover bg-center'>
+          <h1 className='text-5xl text-white'>{posts[0].author.name}</h1>
         </div>
 
-        <div className='w-full flex mt-12 p-6'>
-          <div className='w-1/2 flex flex-col'>
-            <h1>Recent Posts</h1>
-            <div>
-
-            </div>
-          </div>
-          <div className='w-1/2 flex flex-col'>
-            <h1>Top Posts</h1>
-            
-          </div>
+        <div className='max-w-7xl mx-auto mt-12 p-6'>  
+                   
+            {(session?.uid === posts[0].author.uid) ? 
+              <div>
+                <h1 className='text-2xl mb-4'>Your posts:</h1>
+                <div className='w-full grid grid-cols-1 sm:grid-cols-2 gap-3'>
+                  {authorsPosts.map(post => (
+                  <PostCard post={post}
+                            allowDelete={true}
+                            deletePost={deletePost}/>
+                  ))}
+                </div>
+              </div>
+              :
+              <div>
+                <h1 className='text-2xl mb-4'>{posts[0].author.name}'s posts: </h1>
+                <div className='w-full grid grid-cols-2 gap-3'>
+                  {authorsPosts.map(post => (
+                  <PostCard post={post}/>
+                  ))}
+                </div>
+              </div>
+            }
+                      
         </div>
       </section>
-    </main>
+      <Footer />
+    </div>
   )
 }
 
@@ -50,17 +77,12 @@ const postsRef = collection(db, 'posts');
 
 
 export const getStaticPaths = async () => {
-  const query = 
-    `*[_type == 'author']{
-      _id,
-      slug,
-    }`;
+  
+  const postsSnap = await getDocs(postsRef);
 
-  const authors = await sanityClient.fetch(query);
-
-  const paths = authors.map((author: Author) => ({
+  const paths = postsSnap.docs.map((doc) => ({
     params: {
-      slug: author.slug.current
+      uid: doc.data().author.uid
     }
   }));
 
@@ -70,39 +92,16 @@ export const getStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async ({params}) => {
-  const authorQuery = `*[_type == 'author' && slug.current == $slug][0]{
-    name,
-    slug,
-    image,
-    bio,
-  }`
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { uid }: any = context.params;
 
-  const postsQuery = `*[_type == 'post' && slug.current == $slug][0]{
-    _id,
-    title,
-    slug,
-    author -> {
-    name, 
-    image,
-    bio,
-    slug
-  },
-  description,
-  mainImage, 
-  publishedAt,
-  body
-  }`
-
-  const author = await sanityClient.fetch(authorQuery, {
-    slug: params?.slug,
-  });
-
-  const posts = await sanityClient.fetch(postsQuery, {
-    slug: params?.slug,
+  const q = query(postsRef, where('author.uid', '==', uid));
+  const snap = await getDocs(q);
+  const posts = snap.docs.map((doc) => {
+    return {...doc.data(), id: doc.id};
   })
 
-  if(!author) {
+  if(!posts) {
     return {
       notFound: true
     }
@@ -110,7 +109,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
   return {
     props: {
-      author,
       posts
     }
   }

@@ -8,7 +8,7 @@ import { Avatar } from '@chakra-ui/react'
 import { db } from '../../firebase'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import SidebarPostCard from '../../components/SidebarPostCard'
-
+import Footer from '../../components/Footer'
 
 interface Props {
   post: Post;
@@ -17,18 +17,15 @@ interface Props {
 
 function Post({post, authorPosts}: Props) {
   
-
-  console.log('authors posts', authorPosts);
-  
   return (
-    <main className='bg-slate-50'>
+    <main className='bg-slate-100 min-h-screen'>
       <Head>
         <title>{post.title}</title>
       </Head>
       <Header/>
       
       <section className='max-w-7xl mx-auto p-10 flex'>
-        <div className='w-full lg:w-3/4 px-10'>
+        <div className=' px-2 w-full lg:w-3/4 sm:px-10'>
 
           <div className='flex flex-col items-center pt-10'>
             <div className='space-y-5 flex flex-col items-center'>
@@ -49,7 +46,7 @@ function Post({post, authorPosts}: Props) {
 
             {post.mainImage && <div className='flex justify-center h-72 w-full mt-10 px-10 overflow-hidden'>
                                  <img
-                                   className='h-full object-center object-contain'
+                                   className='w-full object-contain'
                                    src={post.mainImage}
                                  />
                                </div>}
@@ -59,9 +56,8 @@ function Post({post, authorPosts}: Props) {
             </div>
             
           </div>
-          <Comments />
+          <Comments post={post}/>
         </div>
-
 
         <div className='hidden lg:inline-block sticky top-32 w-1/4 p-4 h-fit'>
           <div className='flex flex-col justify-start'>
@@ -70,7 +66,7 @@ function Post({post, authorPosts}: Props) {
             <div className='mt-3 flex flex-wrap'>
               <button className='text-slate-800 border border-slate-800 px-3 py-1 w-fit h-fit mr-2 hover:bg-slate-800 hover:text-white transition ease-in-out duration-300'>Follow</button>
               <button className='text-slate-800 border border-slate-800 px-3 py-1 w-fit h-fit hover:bg-slate-800 hover:text-white transition ease-in-out duration-300'>Message</button>
-              <Link href={`/author/${post.author.slug}`}>
+              <Link href={`/author/${post.author.uid}`}>
                 <button className=' text-slate-800 border border-slate-800 px-3 py-1 w-fit h-fit mt-2 hover:bg-slate-800 hover:text-white transition ease-in-out duration-300'>View Profile</button>
               </Link>
             </div>
@@ -79,14 +75,14 @@ function Post({post, authorPosts}: Props) {
               <h1 className='text-xl'>More from {post.author.name}:</h1>
               <div className='h-fit space-y-3 mt-5 p-3'>
                 {authorPosts.map(post => (
-                  // <SidebarPostCard key={post.slug} post={post}/>
-                  <SidebarPostCard key={post.slug} post={post}/>
+                  <SidebarPostCard key={post.id} post={post}/>
                 ))}
               </div>
             </div>
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   )
 }
@@ -101,7 +97,7 @@ export const getStaticPaths = async () => {
 
   const paths = postsSnap.docs.map((doc) =>  ({
     params: {
-      slug: doc.data().slug
+      id: doc.data().id
     }
   }));
   
@@ -112,26 +108,25 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { slug }: any = context.params;
+  const { id }: any = context.params;
 
   //Get the current post using the slug
-  const q = query(postsRef, where('slug', '==', slug));
+  const q = query(postsRef, where('id', '==', id));
   const postSnap = await getDocs(q);
   const post = postSnap.docs.map(doc => doc.data());
 
   //Get all the posts by the author of the post we got above
-  const authorQ = query(postsRef, where('author.uid', '==', post[0].author.uid), where('slug', '!=', slug));
+  const authorQ = query(postsRef, where('author.uid', '==', post[0].author.uid), where('id', '!=', id));
   const authorPostsSnap = await getDocs(authorQ);
   const authorPosts = authorPostsSnap.docs.map(doc => doc.data());
-
-
 
   if(post.length) {
     return {
       props: {
         post: post[0],
         authorPosts,
-      }
+      },
+      revalidate: 10
     }
   } else {
     return {

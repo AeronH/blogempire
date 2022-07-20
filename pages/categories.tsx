@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 import Link from 'next/link';
 import { categoryImages } from '../categoryImages';
 
-
 function categories() {
   
   const toCapitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);

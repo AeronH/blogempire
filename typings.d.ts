@@ -12,6 +12,7 @@ export interface Post {
   description: string;
   mainImage: string;
   publishedDate: string;
+  id: string;
   slug: string;
   title: string;
   comments: string[];
@@ -23,6 +24,12 @@ export interface Provider {
   name: string;
   signinUrl: string;
   type: string;
+}
+
+export interface Comment {
+  author: string;
+  publishedDate: string;
+  body: string;
 }
 
 

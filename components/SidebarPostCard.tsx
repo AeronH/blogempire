@@ -8,7 +8,7 @@ interface Props {
 
 function SidebarPostCard({post}: Props) {
   return (
-    <Link href={`/post/${post.slug}`}>
+    <Link href={`/post/${post.id}`}>
       <div className='group flex items-center space-x-4 cursor-pointer'>
         <div className='rounded-full h-24 w-24 overflow-hidden'>
           {post.mainImage ?

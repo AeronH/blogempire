@@ -1,12 +1,10 @@
 import Head from 'next/head'
 import Header from '../components/Header'
 import { Post } from '../typings'
-import RecentPost from '../components/RecentPost'
 import PostCard from '../components/PostCard';
 import Footer from '../components/Footer'
 import { collection, getDocs} from 'firebase/firestore'
 import { db } from '../firebase'
-import { SwitchLayoutGroupContext } from 'framer-motion';
 
 interface Props {
   posts: [Post];
@@ -17,7 +15,7 @@ export default function Home({posts}: Props) {
   console.log(posts);
   
   return (
-    <div className="bg-slate-50">
+    <div className="bg-slate-100">
       <Head>
         <title>Blog Empire</title>
         <link rel="icon" href="/favicon.ico" />
@@ -36,17 +34,6 @@ export default function Home({posts}: Props) {
       </section>
 
       <section className=''>
-        {/* <div className='p-5 max-w-7xl mx-auto'>
-          <div>
-            <h2 className='font-extrabold text-3xl mb-4'>Recent Posts:</h2>
-          </div>
-
-          <div className=' flex flex-wrap'>
-            {posts.map(post => (            
-                  <RecentPost post={post}/>  
-            ))}
-          </div>
-        </div> */}
 
         <div className='px-5 max-w-7xl mx-auto py-10'>
           <div>
@@ -72,9 +59,7 @@ const postsRef = collection(db, 'posts');
 export const getServerSideProps = async () => {
   const postsSnap = await getDocs(postsRef);
 
-  const posts = postsSnap.docs.map((doc) =>  {
-    return {...doc.data(), id: doc.id};
-  })
+  const posts = postsSnap.docs.map((doc) =>  doc.data());
   return {
     props: {
       posts: JSON.parse(JSON.stringify(posts))
