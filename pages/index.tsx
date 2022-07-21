@@ -23,7 +23,6 @@ export default function Home({posts}: Props) {
 
       <Header/>
       
-      {/* <section className='bg-gradient-to-r from-blue-800 to-cyan-400'> */}
       <section className='bg-[url("https://images.pexels.com/photos/257092/pexels-photo-257092.jpeg?auto=compress&cs=tinysrgb&w=1600")] bg-no-repeat bg-cover bg-center'>
         <div className=' flex justify-start max-w-7xl mx-auto'>
           <div className='flex-col justify-center h-96 lg:h-backgroundHeightLg w-full px-10 py-20 space-y-16 md:w-1/2 max-w-xl'>

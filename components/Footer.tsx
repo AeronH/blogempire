@@ -11,7 +11,6 @@ function Footer() {
             <h2 className=''><span className='italic font-semibold'>Blog Empire</span> is a place to explore and discover the hot topics of the world.</h2>
           </section>
 
-          
           <div className='grow'>
             <h2 className='text-xl font-semibold mb-4'>Menu</h2>
             <ul className='space-y-4'>

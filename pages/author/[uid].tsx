@@ -7,7 +7,7 @@ import { collection, getDocs, query, where, deleteDoc, doc } from 'firebase/fire
 import Footer from '../../components/Footer'
 import PostCard from '../../components/PostCard'
 import { useSession } from 'next-auth/react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface Props {
   posts: [Post];
@@ -16,7 +16,8 @@ interface Props {
 function Author({posts}: Props) {
 
   const {data: session} = useSession();
-  const [authorsPosts, setAuthorsPosts] = useState<Post[]>(posts);
+  const [authorsPosts, setAuthorsPosts] = useState<Post[]>([]);
+  const [currentUser, setCurrentUser] = useState<string | null | undefined>('')
 
   const deletePost = async (e: any, post: Post) => {
     e.preventDefault();
@@ -28,10 +29,15 @@ function Author({posts}: Props) {
       }));
   }
 
+  useEffect(() => {
+    setCurrentUser(session?.user?.name);
+    setAuthorsPosts(posts)
+  }, [session])
+
   return (
     <div className="bg-slate-100">
       <Head>
-        <title>{posts[0].author.name}</title>
+        <title>{currentUser}</title>
       </Head>
       <Header />
       <section className='min-h-screen'>
@@ -109,7 +115,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      posts
+      posts,
+      revalidate: 60
     }
   }
 }

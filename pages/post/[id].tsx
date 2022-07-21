@@ -64,8 +64,6 @@ function Post({post, authorPosts}: Props) {
             <img className='h-40 w-40 rounded-full object-cover' src={post.author.image} alt="" />
             <h1 className='text-2xl mt-2'>{post.author.name}</h1>
             <div className='mt-3 flex flex-wrap'>
-              <button className='text-slate-800 border border-slate-800 px-3 py-1 w-fit h-fit mr-2 hover:bg-slate-800 hover:text-white transition ease-in-out duration-300'>Follow</button>
-              <button className='text-slate-800 border border-slate-800 px-3 py-1 w-fit h-fit hover:bg-slate-800 hover:text-white transition ease-in-out duration-300'>Message</button>
               <Link href={`/author/${post.author.uid}`}>
                 <button className=' text-slate-800 border border-slate-800 px-3 py-1 w-fit h-fit mt-2 hover:bg-slate-800 hover:text-white transition ease-in-out duration-300'>View Profile</button>
               </Link>
@@ -126,12 +124,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
         post: post[0],
         authorPosts,
       },
-      revalidate: 10
+      revalidate: 60
     }
   } else {
     return {
-      props: {}
+      props: {},
+      revalidate: 60
     }
+    
   }
     
 }

@@ -3,7 +3,6 @@ import { initializeApp, getApps, getApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
-
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,16 +17,6 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBvo-Hi8P-_Mj-3JfXYTcawYy7wiWdGsm8",
-//   authDomain: "blogempire-61edd.firebaseapp.com",
-//   projectId: "blogempire-61edd",
-//   storageBucket: "blogempire-61edd.appspot.com",
-//   messagingSenderId: "363468979269",
-//   appId: "1:363468979269:web:34d7e7dcafb232f65d772c",
-//   measurementId: "G-2GQ5NGEKH2"
-// };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const db  = getFirestore();

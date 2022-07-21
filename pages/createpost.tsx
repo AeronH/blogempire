@@ -7,19 +7,6 @@ import { db } from '../firebase'
 import { collection, doc, setDoc } from 'firebase/firestore'
 import { Post } from '../typings';
 
-// interface Session {
-//   session: {
-//     expires: string;
-//     uid: string;
-//     user: {
-//       email: string;
-//       image: string;
-//       name: string;
-//       username: string;
-//     }
-//   }
-// }
-
 function createpost() {
 
   const {data: session}: any = useSession();

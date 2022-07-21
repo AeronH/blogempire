@@ -12,7 +12,7 @@ function contact() {
       <main className='max-w-7xl mx-auto flex flex-col items-center mb-10'>
         <div className='flex flex-col items-center space-y-5 pt-10'>
           <h2 className='text-3xl'>Get In Touch</h2>
-          <p className='text-center w-1/2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p className='text-center w-1/2'>This is just a mock website. The contact form does not work and is just for display.</p>
         </div>
         <form action="" className='grid grid-cols-1 grid-rows-7 sm:grid-cols-2 sm:grid-rows-5 p-8 gap-x-8 gap-y-6 w-full max-w-5xl'>
           <input type="text" className='px-2 py-3 border border-slate-300 hover:border-slate-500 focus:outline-none focus:border-slate-500' placeholder='First Name'/>
