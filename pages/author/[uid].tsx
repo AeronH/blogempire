@@ -62,7 +62,7 @@ function Author({posts}: Props) {
               :
               <div>
                 <h1 className='text-2xl mb-4'>{posts[0].author.name}'s posts: </h1>
-                <div className='w-full grid grid-cols-2 gap-3'>
+                <div className='w-full grid grid-cols-1 sm:grid-cols-2 gap-3'>
                   {authorsPosts.map(post => (
                   <PostCard post={post}/>
                   ))}

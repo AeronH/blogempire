@@ -22,7 +22,7 @@ function Category({posts, category}: Props) {
           <h1 className='text-5xl text-white tracking-wider'>{category.charAt(0).toUpperCase() + category.slice(1)}</h1>
         </header>
         {posts.length ? 
-        <section className='grid grid-cols-2 gap-3 p-3 max-w-7xl mx-auto'>
+        <section className='grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 max-w-7xl mx-auto'>
           {posts.map(post => (
             <PostCard post={post} />
           ))}
