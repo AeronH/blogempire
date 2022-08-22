@@ -9,7 +9,7 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
-  secret: process.env.SECRET,
+  secret: process.env.NEXT_PUBLIC_SECRET,
 
   callbacks: {
     async session({ session, token}) {
