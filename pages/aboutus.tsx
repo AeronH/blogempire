@@ -16,7 +16,7 @@ function aboutus() {
           <div className='bg-white h-full w-full sm:w-1/2 p-10 flex flex-col justify-center space-y-4 leading-5'>
             <h1 className='text-3xl'>Who we are</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod incididunt ut labore et dolore magna aliqua. 
               Massa tempor nec feugiat nisl. Nam libero justo laoreet sit amet cursus sit amet. At elementum eu facilisis sed odio morbi quis. 
             </p>
             <p>
