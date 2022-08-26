@@ -8,7 +8,7 @@
 
 > NextJS, TailwindCSS, Firebase, Typescript, NextAuth, ChakraUI
 
-### 🏠 [Homepage](blogempire.vercel.app)
+### 🏠 [Link](https://blogempire.vercel.app) to site
 
 ## Install
 
