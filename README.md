@@ -4,6 +4,10 @@
 
 > BlogEmpire is a social media site that allows users to login using their google account and make blog posts under varying categories.
 
+## Technologies used
+
+> NextJS, TailwindCSS, Firebase, Typescript, NextAuth, ChakraUI
+
 ### ✨ [Demo](blogempire.vercel.app)
 
 ## Install
