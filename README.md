@@ -8,7 +8,7 @@
 
 > NextJS, TailwindCSS, Firebase, Typescript, NextAuth, ChakraUI
 
-### ✨ [Demo](blogempire.vercel.app)
+### 🏠 [Homepage](blogempire.vercel.app)
 
 ## Install
 
@@ -24,8 +24,6 @@ npm run start
 
 ## Author
 
-👤 **AeronH**
+👤 **Aeron Horne**
 
-* Github: [@aeronh](https://github.com/aeronh)
-
-
+* Github: [@AeronH](https://github.com/AeronH)
